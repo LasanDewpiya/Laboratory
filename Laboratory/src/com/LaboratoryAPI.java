@@ -74,6 +74,16 @@ public class LaboratoryAPI extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Map paras = getParasMap(request);
+		//System.out.println(paras);
+				String output = LabObj.Updatelab(paras.get("hidDoctorIDSave").toString(), 
+						paras.get("Lab_type").toString(),
+						paras.get("Lab_date").toString(), 
+						paras.get("Des").toString(), 
+						paras.get("PatientId").toString(),
+						paras.get("HospitalId").toString());
+
+				response.getWriter().write(output);
 	}
 
 	/**
@@ -81,6 +91,9 @@ public class LaboratoryAPI extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Map paras = getParasMap(request);
+		String output = LabObj.RemoveLab(paras.get("Lab_Id").toString());
+		response.getWriter().write(output);
 	}
 
 }

@@ -57,90 +57,59 @@ function onLabSaveComplete(response, status) {
 }
 
 
-
-// CLIENT-MODEL================================================================
-function validateLabForm() {
-	// Type
-	if ($("#type").val().trim() == "") {
-		return " Please Insert the Type";
-	}
-
-	// Lab Date
-	if ($("#LabDate").val().trim() == "") {
-		return "Please Insert the Lab date";
-	}
-	// Description
-	if ($("#Desacription").val().trim() == "") {
-		return "Please Insert the Description";
-	}
-	// Hospital ID
-	if ($("#hospitalId").val().trim() == "") {
-		return "Please insert the Hospital Id";
-	}
-
-	// Patient ID
-	if ($("#patientId").val().trim() == "") {
-		return "Please insert the Patient Id.";
-	}
-	
-	return true;
-}
-
-// UPDATE==========================================
-	$(document).on("click", ".btnUpdate", function(event)
-			{
-				$("#hidLabIDSave").val($(this).closest("tr").find('#hidLabIDSave').val());
-				$("#type").val($(this).closest("tr").find('td:eq(0)').text());
-				$("#LabDate").val($(this).closest("tr").find('td:eq(1)').text());
-				$("#Desacription").val($(this).closest("tr").find('td:eq(2)').text());
-				$("#hospitalNmae").val($(this).closest("tr").find('td:eq(3)').text());
-				$("#patientname").val($(this).closest("tr").find('td:eq(4)').text());
-				
-			});
-	
-/*	//Remove
-	$(document).on("click", ".btnRemove", function(event)
-			{
-		
-		$.ajax({
-			url : "DoctorAPI",
-			type : type,
-			data : $("#doctorFome").serialize(),
-			dataType : "text",
-			complete : function(response, status) {
-				console.log(response)
-				onDoctorDeleteComplete(response.responseText, status);
-			}
-		
+//UPDATE==========================================
+$(document).on("click", ".btnUpdate", function(event)
+		{
+			$("#hidLabIDSave").val($(this).closest("tr").find('#hidLabIDSave').val());
+			$("#type").val($(this).closest("tr").find('td:eq(1)').text());
+			$("#LabDate").val($(this).closest("tr").find('td:eq(2)').text());
+			$("#Desacription").val($(this).closest("tr").find('td:eq(3)').text());
+			$("#hospitalNmae").val($(this).closest("tr").find('td:eq(4)').text());
+			$("#patientname").val($(this).closest("tr").find('td:eq(5)').text());
+			
 		});
-	});
+//Remove
+$(document).on("click", ".btnRemove", function(event)
+		{
+		 	$.ajax(
+		{
+			url : "LaboratoryAPI",
+			type : "DELETE",
+			data : "Lab_Id=" + $(this).val(),
+			dataType : "text",
+			complete : function(response, status)
+			{
+				onLabDeleteComplete(response.responseText, status);
+			}
+		 });
+		});
 
-	
-		function onDoctorDeleteComplete(response, status)
-		{
-			if (status == "success")
-		{
-				var resultSet = JSON.parse(response);
-				if (resultSet.status.trim() == "success")
-		{
-				$("#alertSuccess").text("Successfully deleted.");
-				$("#alertSuccess").show();
-				$("#hidDoctorIDSave").html(resultSet.data);
-		} 
-		else if (resultSet.status.trim() == "error")
-		{
-				$("#alertError").text(resultSet.data);
-				$("#alertError").show();
-		}
-		}
-		else if (status == "error")
-		{
-			$("#alertError").text("Error while deleting.");
+
+	function onLabDeleteComplete(response, status)
+	{
+		if (status == "success")
+	{
+			var resultSet = JSON.parse(response);
+			if (resultSet.status.trim() == "success")
+	{
+			$("#alertSuccess").text("Successfully deleted.");
+			$("#alertSuccess").show();
+			$("#divLabGrid").html(resultSet.data);
+	} 
+	else if (resultSet.status.trim() == "error")
+	{
+			$("#alertError").text(resultSet.data);
 			$("#alertError").show();
-		} 
-		else
-		{
-			$("#alertError").text("Unknown error while deleting..");
-			$("#alertError").show();
-		}
-}*/
+	}
+	}
+	else if (status == "error")
+	{
+		$("#alertError").text("Error while deleting.");
+		$("#alertError").show();
+	} 
+	else
+	{
+		$("#alertError").text("Unknown error while deleting..");
+		$("#alertError").show();
+	}
+}

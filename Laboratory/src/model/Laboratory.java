@@ -103,8 +103,8 @@ public class Laboratory {
 		 
 		   
 		    // Add into the html table
-			   // output += "<tr><td><input id='hidDoctorIdUpdate'name='hidDoctorIDUpdate' type='hidden' value'"+D_Id+"'>" + D_Id + "</td>";   
-				output += "<tr><td>" + Lab_Id + "</td>";
+				output += "<tr><td><input id='hidLabIdUpdate'name='hidLabIDUpdate' type='hidden' value='"+Lab_Id+"'>" + Lab_Id + "</td>";  
+				//output += "<td>" + Lab_Id + "</td>";
 				output += "<td>" + Lab_type + "</td>";
 				output += "<td>" + Lab_date + "</td>";
 				output += "<td>" + Des + "</td>";
@@ -113,11 +113,14 @@ public class Laboratory {
 		   		
 		 
 		    // buttons     
-		   		output += "<td><input name=\"btnUpdate\" type=\"button\""
+		   		/*output += "<td><input name=\"btnUpdate\" type=\"button\""
 						+ " value=\"Update\" class=\"btn btn-secondary\"></td>"
 						+ "<td><form method=\"post\" action=\"Laboratory.jsp\">"
 						+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"" + " class=\"btn btn-danger\">"
-						+ "<input name=\"hidLab_IdDelete\" type=\"hidden\" value=\"" + Lab_Id + "\">" + "</form></td></tr>";
+						+ "<input name=\"hidLab_IdDelete\" type=\"hidden\" value=\"" + Lab_Id + "\">" + "</form></td></tr>";*/
+				
+				output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td> "
+						+ "<td><button name='btnRemove' type='button' value='"+ Lab_Id + "' class='btnRemove btn btn-danger'  data-ID= '" + Lab_Id + "'>remove</button></td></tr>";
 			
 		   }
 	  
@@ -134,7 +137,7 @@ public class Laboratory {
 
 	// View Lab Details by Patient Id
 	
-/*	public String ViewLabDetailsByPatientID(int id) {
+	public String ViewLabDetailsByPatientID(int id) {
 		String output = "";
 
 		try {
@@ -249,14 +252,12 @@ public class Laboratory {
 
 		return output;
 	}
-
-*/	
 	
 	
 	
 	// update payment
 
-/*	public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {
+public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {
 		String output = "";
 
 		try {
@@ -280,15 +281,18 @@ public class Laboratory {
 			preparedStmt.setInt(6, Integer.parseInt(Lab_Id));
 
 			// execute the statement
-			preparedStmt.execute();
-			con.close();
-
-			output = "Updated Lab Details successfully";
-		} catch (Exception e) {
-			output = "Error while updating the Lab details.";
-			System.err.println(e.getMessage());
-		}
-
+						preparedStmt.execute();
+						con.close();
+						
+						String newLab = ViewLabDetails();
+						output = "{\"status\":\"success\"}"; 
+						 
+					} catch (Exception e) {
+						output = "{\"status\":\"error\", \"data\": "
+								+ "\"Error while updating the LabReport.\"}"; 
+						output = "Error while updating the LabReport Details.";	
+						System.err.println(e.getMessage());
+					}
 		return output;
 	}
 	
@@ -312,19 +316,22 @@ public class Laboratory {
 			// binding values   
 			preparedStmt.setInt(1, Integer.parseInt(Lab_Id)); 
 	 
-			// execute the statement    
-			preparedStmt.execute();    
-			con.close(); 
-	 
-			output = "Deleted successfully";   
-			}   
-			catch (Exception e)   
-			{    
-				output = "Error while deleting the Lab details.";    
-				System.err.println(e.getMessage());   } 
-	 
-	  return output;  }
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			
+			String newLab = ViewLabDetails();
+			output = "{\"status\":\"success\"}"; 
+			 
+		} catch (Exception e) {
+			output = "{\"status\":\"error\", \"data\": "
+					+ "\"Error while deleting the LabReport.\"}"; 
+			output = "Error while deleting the LabReport Details.";	
+			System.err.println(e.getMessage());
+		}
+		return output;
+  }
 	
-*/
+
 
 }
