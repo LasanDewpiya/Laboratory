@@ -1,4 +1,4 @@
-package com;
+/*package com;
 
 import model.Laboratory;
 
@@ -40,7 +40,7 @@ public class LaboratoryService {
 	public String  ViewLabDetailsByHospital(@FormParam("hospitalId") int HospitalId) {
 		return LabObj.ViewLabDetailsByHospitalID(HospitalId);
 	}
-*/	
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -99,3 +99,4 @@ public class LaboratoryService {
 
 	
 }
+*/

@@ -27,7 +27,7 @@ public class Laboratory {
 
 	// Add Lab Details
 	
-	public String AddLabDetails(String Lab_type, Date Lab_date,String Des,String PatientId,String HospitalId) {
+	public String AddLabDetails(String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {
 		String output = "";
 
 		try {
@@ -43,24 +43,26 @@ public class Laboratory {
 
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, Lab_type);
-			preparedStmt.setDate(3, Lab_date);
+			preparedStmt.setString(3, Lab_date);
 			preparedStmt.setString(4, Des);
 			preparedStmt.setString(5, PatientId);
 			preparedStmt.setString(6, HospitalId);
-
-			//Execute the code
+			// execute the statement
 			preparedStmt.execute();
 			con.close();
-
-			output = "Inserted Lab Details successfully";
+			
+			String newLab = ViewLabDetails() ;
+			output = "{\"status\":\"success\"}"; 
+			 
 		} catch (Exception e) {
-			output = "Error while inserting the Lab details.";
+			output = "{\"status\":\"error\", \"data\": "
+					+ "\"Error while inserting the Laboratory.\"}"; 
+			output = "Error while inserting the Laboratory Details.";	
 			System.err.println(e.getMessage());
 		}
-
 		return output;
 	}
-//read 
+//view
 	public String ViewLabDetails()  
 	{   String output = ""; 
 	 
@@ -115,7 +117,7 @@ public class Laboratory {
 						+ " value=\"Update\" class=\"btn btn-secondary\"></td>"
 						+ "<td><form method=\"post\" action=\"Laboratory.jsp\">"
 						+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"" + " class=\"btn btn-danger\">"
-						+ "<input name=\"Lab_Id\" type=\"hidden\" value=\"" + Lab_Id + "\">" + "</form></td></tr>";
+						+ "<input name=\"hidLab_IdDelete\" type=\"hidden\" value=\"" + Lab_Id + "\">" + "</form></td></tr>";
 			
 		   }
 	  
@@ -127,6 +129,7 @@ public class Laboratory {
 		System.err.println(e.getMessage());
 	}
 	return output;
+	
 }
 
 	// View Lab Details by Patient Id
@@ -253,7 +256,7 @@ public class Laboratory {
 	
 	// update payment
 
-	public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {
+/*	public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String Des,String PatientId,String HospitalId) {
 		String output = "";
 
 		try {
@@ -322,6 +325,6 @@ public class Laboratory {
 	 
 	  return output;  }
 	
-	
+*/
 
 }
