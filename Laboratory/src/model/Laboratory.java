@@ -62,7 +62,7 @@ public class Laboratory {
 		}
 		return output;
 	}
-//view
+//view lab details
 	public String ViewLabDetails()  
 	{   String output = ""; 
 	 
@@ -77,7 +77,7 @@ public class Laboratory {
 		   		+ " <th>Update</th><th>Delete</th></tr>";
 
 		
-		   String query = "SELECT `labId`,`type`,`LabDate`,`Desacription`,`hospital`.`hospitalNmae`,`patient`.`fNmae` as patientname  FROM `laboratoryreport` " + 
+		   String query = "SELECT `labId`,`type`,`LabDate`,`Desacription`,`hospital`.`hospitalNmae`,`laboratoryreport`.`patientId`,`patient`.`fNmae` as patientname  FROM `laboratoryreport` " + 
 		   		"INNER JOIN `hospital` ON `laboratoryreport`.`hospitalId` = `hospital`.`hospitalId` " + 
 		   		"INNER JOIN `patient` ON `laboratoryreport`.`patientId` = `patient`.`patientId`";
 		   
@@ -93,6 +93,7 @@ public class Laboratory {
 			   
 			   String Lab_Id =Integer.toString(rs.getInt("labId"));
 				String Lab_type = rs.getString("type");
+				String pid = rs.getString("patientId");
 				Date Lab_date = rs.getDate("LabDate");
 				String Des = rs.getString("Desacription");
 				String hospitalNmae =rs.getString("hospitalNmae");
@@ -103,13 +104,13 @@ public class Laboratory {
 		 
 		   
 		    // Add into the html table
-				output += "<tr><td><input id='hidLabIdUpdate'name='hidLabIDUpdate' type='hidden' value='"+Lab_Id+"'>" + Lab_Id + "</td>";  
+				output += "<tr><td><input id='hidLabIdUpdate' name='hidLabIDUpdate' type='hidden' value='"+Lab_Id+"'>" + Lab_Id + "</td>";  
 				//output += "<td>" + Lab_Id + "</td>";
 				output += "<td>" + Lab_type + "</td>";
 				output += "<td>" + Lab_date + "</td>";
 				output += "<td>" + Des + "</td>";
 				output += "<td>" + hospitalNmae + "</td>";
-				output += "<td>" + patientNmae + "</td>";
+				output += "<td> <input id='hidpid' name='hidpid' type='hidden' value='"+pid+"'>" + patientNmae + "</td>";
 		   		
 		 
 		    // buttons     
@@ -284,7 +285,7 @@ public String Updatelab(String Lab_Id, String Lab_type, String Lab_date,String D
 						preparedStmt.execute();
 						con.close();
 						
-						String newLab = ViewLabDetails();
+						
 						output = "{\"status\":\"success\"}"; 
 						 
 					} catch (Exception e) {

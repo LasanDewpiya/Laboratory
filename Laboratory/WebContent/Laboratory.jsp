@@ -14,7 +14,7 @@
 <script src="Components/Laboratory.js"></script>
 </head>
 <body>
-
+<%session.setAttribute("uID",1);   %>
 <div class="container">
 		<div class="row">
 			<div class="col-6">
@@ -31,19 +31,28 @@
 					Description: <input id="Desacription" name="Des" type="text"
 						class="form-control form-control-sm"> <br> 
 						
-					HospitalID: <input id="hospitalId" name="HospitalId" type="text"
-						class="form-control form-control-sm"> <br> 
+					<input id="hospitalId" name="HospitalId" type="hidden"
+						class="form-control form-control-sm" value="<%out.print(String.valueOf(session.getAttribute("uID")));%>"> <br> 
 						
-					PatientID: <input id="patientId" name="PatientId" type="text"
-						class="form-control form-control-sm"> <br> 
+					PatientID:<select class="form-control" id="PatientId" name ="PatientId">
+									<option value="0">choose....</option>
+									<option value="9876">radil</option>
+									<option value="12345">kisha</option>
+									<option value="21345">sachintha</option>
+									<option value="18064031">saman</option>
+									<option value="18064032">amal</option>
+									<option value="18063">kethaki</option>
+									<option value="18064">devinda</option>
+								</select>
+								 
 						
 			
-						
+						<input type="hidden" id="hidLabIDSave" name="hidLabIDSave" value="">
 				
 						 <br> <input
 						id="btnSave" name="btnSave" type="button" value="Save"
-						class="btn btn-primary"> <input type="hidden"
-						id="hidLabIDSave" name="hidLabIDSave" value="">
+						class="btn btn-primary">
+						 
 						
 				</form>
 				

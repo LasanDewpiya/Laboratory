@@ -76,7 +76,7 @@ public class LaboratoryAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
 		//System.out.println(paras);
-				String output = LabObj.Updatelab(paras.get("hidDoctorIDSave").toString(), 
+				String output = LabObj.Updatelab(paras.get("hidLabIDSave").toString(), 
 						paras.get("Lab_type").toString(),
 						paras.get("Lab_date").toString(), 
 						paras.get("Des").toString(), 
